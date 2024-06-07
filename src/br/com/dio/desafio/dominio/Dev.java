@@ -6,10 +6,15 @@ public class Dev {
     private String nome;
     private Set<Conteudo> conteudosInscritos = new LinkedHashSet<>();
     private Set<Conteudo> conteudosConcluidos = new LinkedHashSet<>();
+    private Set<Projeto> projetos = new LinkedHashSet<>();
 
     public void inscreverBootcamp(Bootcamp bootcamp){
         this.conteudosInscritos.addAll(bootcamp.getConteudos());
         bootcamp.getDevsInscritos().add(this);
+    }
+
+    public void inscreverProjeto(Projeto projeto) {
+        this.projetos.add(projeto);
     }
 
     public void progredir() {
@@ -30,13 +35,7 @@ public class Dev {
             soma += next;
         }
         return soma;
-
-        /*return this.conteudosConcluidos
-                .stream()
-                .mapToDouble(Conteudo::calcularXp)
-                .sum();*/
     }
-
 
     public String getNome() {
         return nome;
@@ -62,16 +61,24 @@ public class Dev {
         this.conteudosConcluidos = conteudosConcluidos;
     }
 
+    public Set<Projeto> getProjetos() {
+        return projetos;
+    }
+
+    public void setProjetos(Set<Projeto> projetos) {
+        this.projetos = projetos;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Dev dev = (Dev) o;
-        return Objects.equals(nome, dev.nome) && Objects.equals(conteudosInscritos, dev.conteudosInscritos) && Objects.equals(conteudosConcluidos, dev.conteudosConcluidos);
+        return Objects.equals(nome, dev.nome) && Objects.equals(conteudosInscritos, dev.conteudosInscritos) && Objects.equals(conteudosConcluidos, dev.conteudosConcluidos) && Objects.equals(projetos, dev.projetos);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome, conteudosInscritos, conteudosConcluidos);
+        return Objects.hash(nome, conteudosInscritos, conteudosConcluidos, projetos);
     }
 }
